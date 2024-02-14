@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Fee Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+   <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+   
+</head>
+<body>
+
+    <h2>Student Fee Structure</h2>
+    
+        <!-- Form for searching student -->
+    
+    
+
+  
+   <form th:action="@{/invoice}" method="post">
+  <table>
+  <tr>
+ <td><label for="Student_id">Student ID:</label></td> 
+
+  <td><input type="text" id="Student_id" name="Student_id"></input></td>
+
+ <td> <button type="Submit" class="btn btn-primary">Search</button></td>
+  </tr>
+  </table>
+  </form>
+  
+   
+    
+    
+    
+    
+  <!--  <div th:if="${student}">-->
+    
+    <div th:if="${student}">
+    <h3>Student Information</h3>
+    
+       
+<table class="tabel tabel-striped">
+    <tr th:each="student : ${student}">
+        <td scope="row">Id</td>
+        <td th:text="${student.Student_id}"></td>
+    </tr>
+        <tr>
+            <td scope="row">Name</td>
+            <td th:text="''+${student.Student_name}"></td>
+        </tr>
+        <tr>
+            <td scope="row">Division</td>
+            <td th:text="''+${student.Division}"></td>
+        </tr>
+        <tr>
+            <td scope="row">Standard</td>
+            <td th:text="''+${student.Standard}"></td>
+        </tr>
+        <tr>
+            <td scope="row">PreviousFees</td>
+            <td th:text="''+${student.Previous_Fees}"></td>
+        </tr>
+        <tr>
+            <td scope="row">Paid_Fees</td>
+            <td th:text="''+${student.Paid_Fees}"></td>
+        </tr>
+        <tr>
+            <td scope="row">Remaining_Fees</td>
+            <td th:text="''+${student.Remaining_Fees}"></td>
+        </tr>
+        <tr>
+            <td scope="row">Total Fee</td>
+            <td th:text="''+${student.Total_Fee}"></td>
+        </tr>
+     
+</table>
+</div>
+
+
+
+ 
+
+<form th:action="@{/addFee}" th:object="${newFee}" method="post">
+       <table>
+       <tr>
+      <td> <label for="Sr_Number">Sr_Number:</label></td>
+       <td> <input type="text" id="Sr_Number" name="Sr_Number"></input></td>
+       
+         </tr>
+          <tr>
+       <td> <label for="Fee_Title">Fee Title:</label></td>
+       <td> <input type="text" id="Fee_Title" name="Fee_Title"></input></td>
+         </tr>
+          <tr>
+       <td> <label for="Fee_Type">Fee Type:</label></td>
+       <td> <input type="text" id="Fee_Type" name="Fee_Type"></input></td>
+         </tr>
+          <tr>
+       <td><label for="Amount_Payable">Amount Payable:</label></td>
+       <td><input type="text" id="Amount_Payable" name="Amount_Payable"></input></td>
+         </tr>
+          <tr>
+       <td><label for="Amount_Paid">Amount_Paid:</label></td>
+       <td><input type="text" id="Amount_Paid" name="Amount_Paid"></input></td>
+         </tr>
+           <tr>
+       <td><label for="Amount_Paying">Amount_Paying:</label></td>
+       <td><input type="text" id="Amount_Paying" name="Amount_Paying"></input></td>
+         </tr>
+        </table>
+            <button type="submit" class="btn btn-success">Add Fee</button>
+ </form>
+    
+    <table  class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Sr Number</th>
+                <th scope="col">Fee Title</th>
+                <th scope="col">Fee Type</th>
+                <th scope="col">Amount Payable</th>
+                <th scope="col">Amount paid</th>
+                <th scope="col">Amount Paying</th>
+             </tr>
+             </thead>
+        
+     <tbody>
+            <tr th:each="entity,index:${invoice}">
+                <td th:text="${entity.Sr_Number}"></td>
+                <td th:text="${entity.Fee_Title}"></td>
+                <td th:text="${entity.Fee_Type}"></td>
+                <td th:text="${entity.Amount_Payable}"></td>
+                <td th:text="${entity.Amount_Paid}"></td>
+                <td th:text="${entity.Amount_Paying}"></td>
+              </tr>
+              </tbody>
+              
+              </table>
+             
+             
+              
+            
+              
+        <!--   <h1>Invoice</h1>
+    <p th:text="${invoiceContent}"></p>     
+              -->
+              
+                        
+<button class="styled-button" onclick="printInvoice()">Print</button>
+
+
+<a th:href="@{/generatePDF}" class="btn btn-primary">PDF</a>
+
+  <script type="text/javascript">
+    function printInvoice() {
+        window.print();
+    }
+   
+</script>
+                 
+   
+
+
+      
+</body>
+</html>
