@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Image</title>
+</head>
+<body>
+    <h1>Image</h1>
+    <img th:if="${file.contentType.startsWith('image')}" th:src="'data:' + ${file.contentType} + ';base64,' + ${file.data}" style="max-width: 300px;"/>
+    <a href="/">Back to Uploaded Files</a>
+</body>
+</html>
