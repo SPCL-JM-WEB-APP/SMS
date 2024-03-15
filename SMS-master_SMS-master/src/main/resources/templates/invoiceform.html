@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Student Information</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="/css/style1.css"/>
+</head>
+<body>
+    <div class="container">
+    <div class="header">
+    
+        <h2>SPCL INFOTECH SERVICES</h2>
+        <h6>Sneha Plaza, Office No-7,2nd Floor,<br> Mumbai Banglore Highway Near Church,Warje<br>
+             Pune-411052, Maharashtra.</h6>
+    
+    <div class="container">
+    <div class="header">
+        <h3>Student Information</h3>
+        <p id="dateTime"></p>
+        
+        
+        
+    </div>
+    <div th:if="${student != null}">
+        <table class="invoice-info">
+            <tr>
+                <th>Student ID</th>
+                <td th:text="${student.Student_id}"></td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td th:text="${student.Student_name}"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td th:text="${student.Division}"></td>
+            </tr>
+            <tr>
+                <th>Standard</th>
+                <td th:text="${student.Standard}"></td>
+            </tr>
+            <tr>
+                <th>Previous Fees</th>
+                <td th:text="${student.Previous_Fees}"></td>
+            </tr>
+            <tr>
+                <th>Paid Fees</th>
+                <td th:text="${student.Paid_Fees}"></td>
+            </tr>
+            <tr>
+                <th>Remaining Fees</th>
+                <td th:text="${student.Remaining_Fees}"></td>
+            </tr>
+            <tr>
+                <th>Total Fee</th>
+                <td th:text="${student.Total_Fee}"></td>
+            </tr>
+            
+        </table>
+    </div>
+</div>
+<h3>Fees Structure</h3>
+
+        <div th:if="${error != null}">
+            <p th:text="${error}"></p>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Sr Number</th>
+                        <th scope="col">Fee Title</th>
+                        <th scope="col">Fee Type</th>
+                        <th scope="col">Amount Payable</th>
+                        <th scope="col">Amount Paid</th>
+                        <th scope="col">Amount Paying</th>
+                        <th scope="col">Receipt Number</th> <!-- Add a column for receipt number -->
+                   
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="entity, index : ${invoice}">
+                        <td th:text="${entity.Sr_Number}"></td>
+                        <td th:text="${entity.Fee_Title}"></td>
+                        <td th:text="${entity.Fee_Type}"></td>
+                        <td th:text="${entity.Amount_Payable}"></td>
+                        <td th:text="${entity.Amount_Paid}"></td>
+                        <td th:text="${entity.Amount_Paying}"></td>
+                        <td th:text="${entity.Receipt_Number}"></td> <!-- Display receipt number -->
+                         
+                    </tr>
+                    
+                </tbody>
+                <label for="paymentMode">Select Payment Mode:</label>
+                <select id="paymentMode" name="paymentMode">
+                    <option value="cash">By Cash</option>
+                    <option value="check">By Check</option>
+                    <option value="online">By Online</option>
+                </select>
+            </table>
+            
+            
+        </div>
+        
+        <div class="btn-container">
+            <button class="styled-button" onclick="printInvoice()">Print</button>
+            <a th:href="@{/generatePDF}" class="btn btn-primary">Generate PDF</a>
+            <a th:href="@{/invoice}" class="btn btn-primary">Go Back to Invoice</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function printInvoice() {
+            window.print();
+        }
+        
+     // Function to update date and time dynamically
+        function updateDateTime() {
+            var dateTimeElement = document.getElementById('dateTime');
+            var now = new Date();
+            var formattedDateTime = now.toLocaleString();
+            dateTimeElement.innerText = formattedDateTime;
+        }
+
+        // Call the function once to display date and time immediately
+        updateDateTime();
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+    </script>
+</body>
+</html>
