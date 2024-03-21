@@ -33,12 +33,20 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+        .requestMatchers("/home").permitAll()
             .requestMatchers("/registration**").permitAll()
+            .requestMatchers("/invoice**").permitAll()
+
             .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin()
             .loginPage("/login")
+          //  .loginPage("/invoice")
+
+            .loginPage("/home")
+            
+        
             .permitAll()
             .and()
             .logout()
